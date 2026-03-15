@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 
 const MainLayout = () => {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen bg-neutral-200">
             {' '}
             <ToastContainer
                 position="top-left"

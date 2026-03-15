@@ -1,7 +1,13 @@
-import React from 'react';
+import { Link } from 'react-router';
 
 const Header = () => {
-    return <div></div>;
+    return (
+        <div className="navbar bg-base-300 shadow-sm">
+            <Link to="/" className="btn btn-ghost text-xl mx-auto">
+                SoKo
+            </Link>
+        </div>
+    );
 };
 
 export default Header;
