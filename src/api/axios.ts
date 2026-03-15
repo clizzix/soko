@@ -19,6 +19,7 @@ api.interceptors.request.use(
     },
 );
 
+// Error handling
 api.interceptors.response.use(
     (response) => response,
     (error) => {

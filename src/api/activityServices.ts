@@ -4,30 +4,12 @@ import {
     type CreateActivityFormData,
     type ActivityResponse,
 } from '../schemas';
-
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+import api from './axios';
 
 export const createActivity = async (
     activityData: CreateActivityFormData,
-    token: string,
 ): Promise<ActivityResponse> => {
-    const response = await fetch(`${API_BASE}/api/activities`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(activityData),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-        throw new Error(
-            data.message || data.error || 'Failed to create activity',
-        );
-    }
-
+    const { data } = await api.post('/activities', activityData);
     return activityResponseSchema.parse(data);
 };
 
@@ -36,27 +18,15 @@ export const getNearbyActivities = async (
     latitude: number,
     distance = 10,
 ): Promise<ActivityResponse[]> => {
-    const response = await fetch(
-        `${API_BASE}/api/activities?lng=${longitude}&lat=${latitude}&distance=${distance}`,
-    );
-
-    if (!response.ok) {
-        throw new Error('Failed to fetch activities');
-    }
-
-    const data = await response.json();
+    const { data } = await api.get('/activities', {
+        params: { lng: longitude, lat: latitude, distance },
+    });
     return z.array(activityResponseSchema).parse(data);
 };
 
 export const getActivityById = async (
     id: string,
 ): Promise<ActivityResponse> => {
-    const response = await fetch(`${API_BASE}/api/activities/${id}`);
-
-    if (!response.ok) {
-        throw new Error('Activity not found');
-    }
-
-    const data = await response.json();
+    const { data } = await api.get(`/activities/${id}`);
     return activityResponseSchema.parse(data);
 };
