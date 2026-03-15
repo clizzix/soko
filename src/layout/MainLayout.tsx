@@ -1,0 +1,31 @@
+import { Outlet } from 'react-router';
+import Navbar from '../components/Navbar';
+import Header from '../components/Header';
+import { ToastContainer } from 'react-toastify';
+
+const MainLayout = () => {
+    return (
+        <div className="flex flex-col min-h-screen">
+            {' '}
+            <ToastContainer
+                position="top-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
+            <Header />
+            <div className="mx-auto m-4 pb-20">
+                <Outlet />
+            </div>
+            <Navbar />
+        </div>
+    );
+};
+
+export default MainLayout;
