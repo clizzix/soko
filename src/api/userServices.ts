@@ -1,21 +1,44 @@
-export const loginUser = async (email: string, password: string) => {
-    const port = import.meta.env.VITE_PORT || 'http://localhost:8080';
-    try {
-        const response = await fetch(`${port}/api/users/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-        });
+import {
+    authResponseSchema,
+    type LoginFormData,
+    type SignupFormData,
+    type AuthResponse,
+} from '../schemas';
 
-        const data = await response.json();
+const API_BASE = import.meta.env.VITE_PORT || 'http://localhost:8080';
 
-        if (response.ok) {
-            localStorage.setItem('token', data.token);
-            console.log('Login successful!', data.user);
-        } else {
-            console.error('Login failed:', data.error);
-        }
-    } catch (err) {
-        console.error('Network error:', err);
+export const loginUser = async (
+    credentials: LoginFormData,
+): Promise<AuthResponse> => {
+    const response = await fetch(`${API_BASE}/api/users/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.message || data.error || 'Login failed');
     }
+
+    return authResponseSchema.parse(data);
+};
+
+export const signupUser = async (
+    credentials: Omit<SignupFormData, 'confirmPassword'>,
+): Promise<AuthResponse> => {
+    const response = await fetch(`${API_BASE}/api/users/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.message || data.error || 'Signup failed');
+    }
+
+    return authResponseSchema.parse(data);
 };

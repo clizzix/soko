@@ -1,30 +1,62 @@
-export const createActivity = async (activityData) => {
-    const token = localStorage.getItem('token');
-    const port = import.meta.env.VITE_PORT || 'http://localhost:8080';
-    try {
-        const response = await fetch(`${port}/api/activities`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(activityData),
-        });
+import { z } from 'zod';
+import {
+    activityResponseSchema,
+    type CreateActivityFormData,
+    type ActivityResponse,
+} from '../schemas';
 
-        const data = await response.json();
-        return data;
-    } catch (err) {
-        console.error('Request failed:', err);
+const API_BASE = import.meta.env.VITE_PORT || 'http://localhost:8080';
+
+export const createActivity = async (
+    activityData: CreateActivityFormData,
+    token: string,
+): Promise<ActivityResponse> => {
+    const response = await fetch(`${API_BASE}/api/activities`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(activityData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            data.message || data.error || 'Failed to create activity',
+        );
     }
+
+    return activityResponseSchema.parse(data);
 };
 
 export const getNearbyActivities = async (
     longitude: number,
     latitude: number,
-) => {
-    const url = `http://localhost:5000/api/activities?lng=${longitude}&lat=${latitude}&distance=10`;
+    distance = 10,
+): Promise<ActivityResponse[]> => {
+    const response = await fetch(
+        `${API_BASE}/api/activities?lng=${longitude}&lat=${latitude}&distance=${distance}`,
+    );
 
-    const response = await fetch(url);
-    const activities = await response.json();
-    return activities;
+    if (!response.ok) {
+        throw new Error('Failed to fetch activities');
+    }
+
+    const data = await response.json();
+    return z.array(activityResponseSchema).parse(data);
+};
+
+export const getActivityById = async (
+    id: string,
+): Promise<ActivityResponse> => {
+    const response = await fetch(`${API_BASE}/api/activities/${id}`);
+
+    if (!response.ok) {
+        throw new Error('Activity not found');
+    }
+
+    const data = await response.json();
+    return activityResponseSchema.parse(data);
 };
