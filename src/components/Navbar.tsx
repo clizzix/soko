@@ -14,10 +14,16 @@ const Navbar = () => {
                             <MdHome size={24} />
                         </Link>
                         <Link
-                            to="/activities/create"
+                            to="/activity/create"
                             className="btn btn-circle btn-secondary"
                         >
                             <MdAdd size={24} />
+                        </Link>
+                        <Link
+                            to="/user/favorites"
+                            className="btn btn-circle btn-secondary"
+                        >
+                            <MdFavorite size={24} />
                         </Link>
                     </div>
 
@@ -29,12 +35,20 @@ const Navbar = () => {
                     </button>
                 </div>
             ) : (
-                <Link
-                    to="/login"
-                    className="mx-auto bg-base-200 px-4 py-2 btn btn-ghost font-bold text-xl"
-                >
-                    Login
-                </Link>
+                <div className="flex mx-auto">
+                    <Link
+                        to="/login"
+                        className="mx-auto bg-base-200 px-4 py-2 btn btn-ghost font-bold text-xl"
+                    >
+                        Login
+                    </Link>
+                    <Link
+                        to="/signup"
+                        className="btn btn-accent font-bold text-xl"
+                    >
+                        Signup
+                    </Link>
+                </div>
             )}
         </nav>
     );

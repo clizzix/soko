@@ -30,3 +30,8 @@ export const getActivityById = async (
     const { data } = await api.get(`/activities/${id}`);
     return activityResponseSchema.parse(data);
 };
+
+export const getAllActivities = async (): Promise<ActivityResponse[]> => {
+    const { data } = await api.get('/activities');
+    return z.array(activityResponseSchema).parse(data);
+};
