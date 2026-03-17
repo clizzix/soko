@@ -20,7 +20,7 @@ export interface Activity {
     title: string;
     description: string;
     date: string;
-    userId: string;
+    userId: string | User;
     location: ActivityLocation;
     createdAt?: string;
     updatedAt?: string;

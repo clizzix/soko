@@ -57,7 +57,7 @@ export const createActivitySchema = z.object({
 
 export const activityResponseSchema = createActivitySchema.extend({
     _id: z.string(),
-    userId: z.string(),
+    userId: z.union([z.string(), z.looseObject({ _id: z.string() })]),
     date: z.string(),
     createdAt: z.string().optional(),
     updatedAt: z.string().optional(),
