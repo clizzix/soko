@@ -16,9 +16,9 @@ const Home = () => {
     }, []);
 
     return (
-        <div>
-            <MapView activities={activities} style="h-64 w-full" />
-            <ul>
+        <div className="flex flex-col gap-2">
+            <MapView activities={activities} style="h-68 w-full" />
+            <ul className="flex gap-2">
                 {activities.map((activity) => (
                     <ActivityCard key={activity._id} activity={activity} />
                 ))}

@@ -26,7 +26,8 @@ const ActivityDetails = () => {
     }, [id]);
 
     if (loading) return <div className="p-4">Loading...</div>;
-    if (notFound || !activity) return <div className="p-4">Activity not found.</div>;
+    if (notFound || !activity)
+        return <div className="p-4">Activity not found.</div>;
 
     return (
         <div className="p-4 flex flex-col gap-4">

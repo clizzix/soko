@@ -20,7 +20,7 @@ const MainLayout = () => {
                 theme="dark"
             />
             <Header />
-            <div className="mx-auto m-4 pb-20">
+            <div className="w-full pb-20">
                 <Outlet />
             </div>
             <Navbar />

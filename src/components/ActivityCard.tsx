@@ -1,4 +1,5 @@
 import { type ActivityResponse } from '../schemas';
+import { Link } from 'react-router';
 
 type ActivityCardProps = {
     activity: ActivityResponse;
@@ -21,7 +22,12 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
                     })}
                 </p>
                 <div className="justify-end card-actions">
-                    <button className="btn btn-primary">See more</button>
+                    <Link
+                        to={`/activity/${activity._id}`}
+                        className="btn btn-primary"
+                    >
+                        See more
+                    </Link>
                 </div>
             </div>
         </div>
