@@ -9,7 +9,7 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
     const dateObject = new Date(activity.date);
 
     return (
-        <div className="card w-96 bg-neutral-400 border border-base-300 card-md shadow-sm text-black">
+        <div className="card w-96 bg-neutral-400 border border-neutral card-md shadow-sm text-black">
             <div className="card-body">
                 <h2 className="card-title text-xl">{activity.title}</h2>
                 <p>{activity.description}</p>

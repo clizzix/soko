@@ -47,7 +47,7 @@ const Signup = () => {
     return (
         <form
             onSubmit={handleSubmit}
-            className="fieldset bg-neutral-400 border-base-300 rounded-box w-xs border p-4 text-black"
+            className="fieldset bg-neutral-400 border-neutral rounded-box w-xs border p-4 text-black mx-auto mt-20"
         >
             <legend className="fieldset-legend text-black">Signup</legend>
             <label htmlFor="userName" className="label">

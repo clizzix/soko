@@ -9,7 +9,10 @@ const Login = () => {
     const { login } = useAuth();
     const navigate = useNavigate();
 
-    const [form, setForm] = useState<LoginFormData>({ email: '', password: '' });
+    const [form, setForm] = useState<LoginFormData>({
+        email: '',
+        password: '',
+    });
     const [errors, setErrors] = useState<Partial<LoginFormData>>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -47,7 +50,7 @@ const Login = () => {
     return (
         <form
             onSubmit={handleSubmit}
-            className="fieldset bg-neutral-400 border-base-300 rounded-box w-xs border p-4 text-black"
+            className="fieldset bg-neutral-400 border-neutral rounded-box w-xs border p-4 text-black mx-auto mt-40"
         >
             <legend className="fieldset-legend text-black">Login</legend>
 

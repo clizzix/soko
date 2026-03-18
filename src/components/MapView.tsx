@@ -67,7 +67,7 @@ const MapView = ({ activities, style = 'h-64 w-full' }: MapViewProps) => {
                                 closeOnClick={false}
                             >
                                 <div className="p-1 text-sm">
-                                    <p className="font-semibold">
+                                    <p className="font-semibold text-black">
                                         {activity.title}
                                     </p>
                                     <Link

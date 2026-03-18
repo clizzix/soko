@@ -6,22 +6,22 @@ const Navbar = () => {
     const { user, logout } = useAuth();
 
     return (
-        <nav className="flex fixed bottom-0 bg-base-200 w-full p-4 z-50">
+        <nav className="flex fixed bottom-0 bg-neutral w-full p-4 z-50">
             {user ? (
                 <div className="flex mx-auto gap-6">
                     <div className="flex justify-center mx-auto gap-4">
-                        <Link to="/" className="btn btn-circle btn-secondary">
+                        <Link to="/" className="btn btn-circle btn-success">
                             <MdHome size={24} />
                         </Link>
                         <Link
                             to="/activity/create"
-                            className="btn btn-circle btn-secondary"
+                            className="btn btn-circle btn-success"
                         >
                             <MdAdd size={24} />
                         </Link>
                         <Link
                             to="/user/favorites"
-                            className="btn btn-circle btn-secondary"
+                            className="btn btn-circle btn-success"
                         >
                             <MdFavorite size={24} />
                         </Link>
@@ -35,16 +35,16 @@ const Navbar = () => {
                     </button>
                 </div>
             ) : (
-                <div className="flex mx-auto">
+                <div className="flex mx-auto gap-2">
                     <Link
                         to="/login"
-                        className="mx-auto bg-base-200 px-4 py-2 btn btn-ghost font-bold text-xl"
+                        className="mx-auto bg-base-200 px-4 py-2 btn rounded-xl btn-base text-l"
                     >
                         Login
                     </Link>
                     <Link
                         to="/signup"
-                        className="btn btn-accent font-bold text-xl"
+                        className="btn btn-accent text-l rounded-xl"
                     >
                         Signup
                     </Link>
