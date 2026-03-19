@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { createActivity } from '../api/activityServices';
-import { createActivitySchema, type CreateActivityFormData } from '../schemas';
+import { createActivitySchema, ActivityTagsEnum, type CreateActivityFormData } from '../schemas';
 import LocationSearch from '../components/LocationSearch';
 
 const CreateActivity = () => {
@@ -68,6 +68,26 @@ const CreateActivity = () => {
                         onChange={(location) => setValue('location', location)}
                         error={errors.location?.message as string | undefined}
                     />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium mb-1">Tags</label>
+                    <div className="flex flex-wrap gap-2">
+                        {ActivityTagsEnum.options.map((tag) => (
+                            <label key={tag} className="label cursor-pointer gap-2">
+                                <input
+                                    type="checkbox"
+                                    value={tag}
+                                    {...register('tags')}
+                                    className="checkbox checkbox-sm checkbox-primary"
+                                />
+                                <span className="label-text">{tag}</span>
+                            </label>
+                        ))}
+                    </div>
+                    {errors.tags && (
+                        <p className="text-red-500 text-sm">{errors.tags.message as string}</p>
+                    )}
                 </div>
 
                 <button

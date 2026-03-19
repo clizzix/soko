@@ -35,12 +35,23 @@ export const authResponseSchema = z.object({
 });
 
 // --- Activity Schemas ---
+export const ActivityTagsEnum = z.enum([
+    'Sport',
+    'Food',
+    'Culture',
+    'Music',
+    'Nature',
+    'Gaming',
+    'Social',
+    'Workshop',
+    'Family',
+]);
 
 export const activityLocationSchema = z.object({
     type: z.literal('Point'),
     coordinates: z.tuple([
         z.number().min(-180).max(180), // longitude
-        z.number().min(-90).max(90),   // latitude
+        z.number().min(-90).max(90), // latitude
     ]),
 });
 
@@ -53,6 +64,7 @@ export const createActivitySchema = z.object({
     description: z.string().min(1, 'Description is required').trim(),
     date: z.coerce.date(),
     location: activityLocationSchema,
+    tags: z.array(ActivityTagsEnum).default([]),
 });
 
 export const activityResponseSchema = createActivitySchema.extend({

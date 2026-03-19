@@ -14,6 +14,16 @@ export interface ActivityLocation {
     type: 'Point';
     coordinates: [number, number]; // [longitude, latitude]
 }
+export type ActivityTag =
+    | 'Sport'
+    | 'Food'
+    | 'Culture'
+    | 'Music'
+    | 'Nature'
+    | 'Gaming'
+    | 'Social'
+    | 'Workshop'
+    | 'Family';
 
 export interface Activity {
     _id: string;
@@ -22,6 +32,7 @@ export interface Activity {
     date: string;
     userId: string | User;
     location: ActivityLocation;
+    tags: ActivityTag[];
     createdAt?: string;
     updatedAt?: string;
 }
