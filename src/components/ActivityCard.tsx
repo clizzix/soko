@@ -1,13 +1,41 @@
+import { useState } from 'react';
 import { type ActivityResponse } from '../schemas';
 import { Link } from 'react-router';
 import { MdFavorite } from 'react-icons/md';
+import { addFavorite, removeFavorite } from '../api';
 
 type ActivityCardProps = {
     activity: ActivityResponse;
+    isFavorited?: boolean;
+    onFavoriteToggle?: (activityId: string, isFavorited: boolean) => void;
 };
 
-const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
+const ActivityCard: React.FC<ActivityCardProps> = ({
+    activity,
+    isFavorited = false,
+    onFavoriteToggle,
+}) => {
     const dateObject = new Date(activity.date);
+    const [favorited, setFavorited] = useState(isFavorited);
+    const [loading, setLoading] = useState(false);
+
+    const handleFavoriteClick = async () => {
+        if (loading) return;
+        setLoading(true);
+        try {
+            if (favorited) {
+                await removeFavorite(activity._id);
+                setFavorited(false);
+                onFavoriteToggle?.(activity._id, false);
+            } else {
+                await addFavorite(activity._id);
+                setFavorited(true);
+                onFavoriteToggle?.(activity._id, true);
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div className="card w-96 bg-neutral-400 border border-neutral card-md shadow-sm text-black">
@@ -40,8 +68,13 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
                         See more
                     </Link>
                     <MdFavorite
-                        className="text-error hover:text-red-600 cursor-pointer"
+                        className={`cursor-pointer transition-colors ${
+                            favorited
+                                ? 'text-error hover:text-red-600'
+                                : 'text-neutral hover:text-error'
+                        } ${loading ? 'opacity-50' : ''}`}
                         size="24"
+                        onClick={handleFavoriteClick}
                     />
                 </div>
             </div>

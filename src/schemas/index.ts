@@ -75,6 +75,25 @@ export const activityResponseSchema = createActivitySchema.extend({
     updatedAt: z.string().optional(),
 });
 
+// --- Favorite Schemas ---
+export const favoriteResponseSchema = z.object({
+    _id: z.string(),
+    userId: z.string(),
+    activityId: z.object({
+        _id: z.string(),
+        title: z.string(),
+        description: z.string(),
+        date: z.string(),
+        location: activityLocationSchema,
+        tags: z.array(ActivityTagsEnum).default([]),
+        userId: z.union([z.string(), z.looseObject({ _id: z.string() })]).optional(),
+        createdAt: z.string().optional(),
+        updatedAt: z.string().optional(),
+    }),
+    createdAt: z.string().optional(),
+    updatedAt: z.string().optional(),
+});
+
 // --- Inferred types ---
 
 export type LoginFormData = z.infer<typeof loginSchema>;
@@ -83,3 +102,4 @@ export type CreateActivityFormData = z.infer<typeof createActivitySchema>;
 export type ActivityResponse = z.infer<typeof activityResponseSchema>;
 export type UserResponse = z.infer<typeof userResponseSchema>;
 export type AuthResponse = z.infer<typeof authResponseSchema>;
+export type FavoriteResponse = z.infer<typeof favoriteResponseSchema>;
