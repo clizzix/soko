@@ -36,6 +36,16 @@ const ActivityDetails = () => {
             <p className="text-sm text-gray-400">
                 {new Date(activity.date).toLocaleDateString()}
             </p>
+            <ul className="flex gap-4">
+                {activity.tags.map((tag, index) => (
+                    <li
+                        className="badge badge-outline badge-success"
+                        key={index}
+                    >
+                        {tag}
+                    </li>
+                ))}
+            </ul>
             <MapView activities={[activity]} style="h-80 w-full rounded" />
         </div>
     );

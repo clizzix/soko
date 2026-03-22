@@ -1,5 +1,6 @@
 import { type ActivityResponse } from '../schemas';
 import { Link } from 'react-router';
+import { MdFavorite } from 'react-icons/md';
 
 type ActivityCardProps = {
     activity: ActivityResponse;
@@ -21,13 +22,27 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
                         day: 'numeric',
                     })}
                 </p>
-                <div className="justify-end card-actions">
+                <ul className="flex gap-4">
+                    {activity.tags.map((tag, index) => (
+                        <li
+                            className="badge badge-outline badge-accent"
+                            key={index}
+                        >
+                            {tag}
+                        </li>
+                    ))}
+                </ul>
+                <div className="justify-end card-actions items-center">
                     <Link
                         to={`/activity/${activity._id}`}
                         className="btn btn-primary"
                     >
                         See more
                     </Link>
+                    <MdFavorite
+                        className="text-error hover:text-red-600 cursor-pointer"
+                        size="24"
+                    />
                 </div>
             </div>
         </div>
