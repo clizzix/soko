@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ProtectedRoute from './components/ProtectedRoute';
 import CreateActivity from './pages/CreateActivity';
+import EditActivity from './pages/EditActivity';
 
 const App = () => {
     return (
@@ -23,6 +24,7 @@ const App = () => {
                         <Route path="user" element={<Profile />} />
                         <Route path="user/favorites" element={<Favorites />} />
                         <Route path="activity/create" element={<CreateActivity />} />
+                        <Route path="activity/:id/edit" element={<EditActivity />} />
                     </Route>
                 </Route>
             </Routes>

@@ -30,6 +30,7 @@ export interface Activity {
     title: string;
     description: string;
     date: string;
+    image?: string;
     userId: string | User;
     location: ActivityLocation;
     tags: ActivityTag[];

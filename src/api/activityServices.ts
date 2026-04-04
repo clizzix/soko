@@ -1,15 +1,14 @@
 import { z } from 'zod';
 import {
     activityResponseSchema,
-    type CreateActivityFormData,
     type ActivityResponse,
 } from '../schemas';
 import api from './axios';
 
 export const createActivity = async (
-    activityData: CreateActivityFormData,
+    formData: FormData,
 ): Promise<ActivityResponse> => {
-    const { data } = await api.post('/activities', activityData);
+    const { data } = await api.post('/activities', formData);
     return activityResponseSchema.parse(data);
 };
 
@@ -34,4 +33,16 @@ export const getActivityById = async (
 export const getAllActivities = async (): Promise<ActivityResponse[]> => {
     const { data } = await api.get('/activities');
     return z.array(activityResponseSchema).parse(data);
+};
+
+export const updateActivity = async (
+    id: string,
+    formData: FormData,
+): Promise<ActivityResponse> => {
+    const { data } = await api.patch(`/activities/${id}`, formData);
+    return activityResponseSchema.parse(data);
+};
+
+export const deleteActivity = async (id: string): Promise<void> => {
+    await api.delete(`/activities/${id}`);
 };

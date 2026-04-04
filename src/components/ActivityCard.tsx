@@ -39,6 +39,15 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
 
     return (
         <div className="card w-96 bg-neutral-400 border border-neutral card-md shadow-sm text-black">
+            {activity.image && (
+                <figure>
+                    <img
+                        src={activity.image}
+                        alt={activity.title}
+                        className="w-full h-40 object-cover"
+                    />
+                </figure>
+            )}
             <div className="card-body">
                 <h2 className="card-title text-xl">{activity.title}</h2>
                 <p>{activity.description}</p>
