@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
+import { z } from 'zod';
 import { createActivity } from '../api/activityServices';
-import { createActivitySchema, ActivityTagsEnum, type CreateActivityFormData } from '../schemas';
+import {
+    createActivitySchema,
+    ActivityTagsEnum,
+    type CreateActivityFormData,
+} from '../schemas';
 import LocationSearch from '../components/LocationSearch';
 
 const CreateActivity = () => {
@@ -16,7 +21,11 @@ const CreateActivity = () => {
         handleSubmit,
         setValue,
         formState: { errors, isSubmitting },
-    } = useForm<CreateActivityFormData>({
+    } = useForm<
+        z.input<typeof createActivitySchema>,
+        unknown,
+        CreateActivityFormData
+    >({
         resolver: zodResolver(createActivitySchema),
     });
 
@@ -31,6 +40,7 @@ const CreateActivity = () => {
         formData.append('title', data.title);
         formData.append('description', data.description);
         formData.append('date', data.date.toISOString());
+        formData.append('price', String(data.price));
         formData.append('location', JSON.stringify(data.location));
         formData.append('tags', JSON.stringify(data.tags));
         if (imageFile) formData.append('image', imageFile);
@@ -41,21 +51,30 @@ const CreateActivity = () => {
     return (
         <div className="p-4 max-w-lg mx-auto flex flex-col gap-4">
             <h1 className="text-2xl font-bold">Create Activity</h1>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col gap-4"
+            >
                 <div>
-                    <label className="block text-sm font-medium mb-1">Title</label>
+                    <label className="block text-sm font-medium mb-1">
+                        Title
+                    </label>
                     <input
                         {...register('title')}
                         className="input input-bordered w-full"
                         placeholder="Activity title"
                     />
                     {errors.title && (
-                        <p className="text-red-500 text-sm">{errors.title.message}</p>
+                        <p className="text-red-500 text-sm">
+                            {errors.title.message}
+                        </p>
                     )}
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium mb-1">Description</label>
+                    <label className="block text-sm font-medium mb-1">
+                        Description
+                    </label>
                     <textarea
                         {...register('description')}
                         className="textarea textarea-bordered w-full"
@@ -63,24 +82,47 @@ const CreateActivity = () => {
                         rows={3}
                     />
                     {errors.description && (
-                        <p className="text-red-500 text-sm">{errors.description.message}</p>
+                        <p className="text-red-500 text-sm">
+                            {errors.description.message}
+                        </p>
                     )}
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium mb-1">Date</label>
+                    <label className="block text-sm font-medium mb-1">
+                        Date
+                    </label>
                     <input
                         type="date"
                         {...register('date')}
                         className="input input-bordered w-full"
                     />
                     {errors.date && (
-                        <p className="text-red-500 text-sm">{errors.date.message as string}</p>
+                        <p className="text-red-500 text-sm">
+                            {errors.date.message as string}
+                        </p>
+                    )}
+                </div>
+                <div>
+                    <label className="block text-sm font-medium mb-1">
+                        Price
+                    </label>
+                    <input
+                        type="price"
+                        {...register('price')}
+                        className="input input-bordered w-full"
+                    />
+                    {errors.price && (
+                        <p className="text-red-500 text.sm">
+                            {errors.price.message as string}
+                        </p>
                     )}
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium mb-1">Location</label>
+                    <label className="block text-sm font-medium mb-1">
+                        Location
+                    </label>
                     <LocationSearch
                         onChange={(location) => setValue('location', location)}
                         error={errors.location?.message as string | undefined}
@@ -88,10 +130,15 @@ const CreateActivity = () => {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium mb-1">Tags</label>
+                    <label className="block text-sm font-medium mb-1">
+                        Tags
+                    </label>
                     <div className="flex flex-wrap gap-2">
                         {ActivityTagsEnum.options.map((tag) => (
-                            <label key={tag} className="label cursor-pointer gap-2">
+                            <label
+                                key={tag}
+                                className="label cursor-pointer gap-2"
+                            >
                                 <input
                                     type="checkbox"
                                     value={tag}
@@ -103,12 +150,16 @@ const CreateActivity = () => {
                         ))}
                     </div>
                     {errors.tags && (
-                        <p className="text-red-500 text-sm">{errors.tags.message as string}</p>
+                        <p className="text-red-500 text-sm">
+                            {errors.tags.message as string}
+                        </p>
                     )}
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium mb-1">Image (optional)</label>
+                    <label className="block text-sm font-medium mb-1">
+                        Image (optional)
+                    </label>
                     <input
                         type="file"
                         accept="image/*"

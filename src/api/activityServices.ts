@@ -1,8 +1,5 @@
 import { z } from 'zod';
-import {
-    activityResponseSchema,
-    type ActivityResponse,
-} from '../schemas';
+import { activityResponseSchema, type ActivityResponse } from '../schemas';
 import api from './axios';
 
 export const createActivity = async (

@@ -62,7 +62,8 @@ export const createActivitySchema = z.object({
         .max(100, 'Title cannot exceed 100 characters')
         .trim(),
     description: z.string().min(1, 'Description is required').trim(),
-    date: z.coerce.date(),
+    date: z.string().pipe(z.coerce.date()),
+    price: z.number().default(0),
     location: activityLocationSchema,
     tags: z.array(ActivityTagsEnum).default([]),
 });
@@ -72,6 +73,7 @@ export const activityResponseSchema = createActivitySchema.extend({
     image: z.string().optional(),
     userId: z.union([z.string(), z.looseObject({ _id: z.string() })]),
     date: z.string(),
+    price: z.number(),
     createdAt: z.string().optional(),
     updatedAt: z.string().optional(),
 });
@@ -85,10 +87,13 @@ export const favoriteResponseSchema = z.object({
         title: z.string(),
         description: z.string(),
         date: z.string(),
+        price: z.number(),
         image: z.string().optional(),
         location: activityLocationSchema,
         tags: z.array(ActivityTagsEnum).default([]),
-        userId: z.union([z.string(), z.looseObject({ _id: z.string() })]).optional(),
+        userId: z
+            .union([z.string(), z.looseObject({ _id: z.string() })])
+            .optional(),
         createdAt: z.string().optional(),
         updatedAt: z.string().optional(),
     }),

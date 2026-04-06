@@ -87,6 +87,7 @@ const ActivityDetails = () => {
             <p className="text-sm text-gray-400">
                 {new Date(activity.date).toLocaleDateString()}
             </p>
+            <p className="text-red-500">{activity.price}€</p>
             <ul className="flex gap-4">
                 {activity.tags.map((tag, index) => (
                     <li

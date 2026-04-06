@@ -59,6 +59,7 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
                         day: 'numeric',
                     })}
                 </p>
+                <p className="text-red-500">{activity.price}€</p>
                 <ul className="flex gap-4">
                     {activity.tags.map((tag, index) => (
                         <li
