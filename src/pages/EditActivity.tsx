@@ -3,8 +3,11 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate, useParams } from 'react-router';
 import { getActivityById, updateActivity } from '../api/activityServices';
+import { z } from 'zod';
 import { createActivitySchema, ActivityTagsEnum, type CreateActivityFormData } from '../schemas';
 import LocationSearch from '../components/LocationSearch';
+
+type RawActivityFormData = z.input<typeof createActivitySchema>;
 
 const EditActivity = () => {
     const { id } = useParams<{ id: string }>();
@@ -20,7 +23,7 @@ const EditActivity = () => {
         setValue,
         reset,
         formState: { errors, isSubmitting },
-    } = useForm<CreateActivityFormData>({
+    } = useForm<RawActivityFormData, unknown, CreateActivityFormData>({
         resolver: zodResolver(createActivitySchema),
     });
 
@@ -31,7 +34,7 @@ const EditActivity = () => {
                 reset({
                     title: activity.title,
                     description: activity.description,
-                    date: new Date(activity.date),
+                    date: new Date(activity.date).toISOString().split('T')[0],
                     location: activity.location,
                     tags: activity.tags,
                 });
