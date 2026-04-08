@@ -4,6 +4,7 @@ import { getActivityById, deleteActivity } from '../api/activityServices';
 import type { ActivityResponse } from '../schemas';
 import MapView from '../components/MapView';
 import { useAuth } from '../context/AuthContext';
+import { MdEdit, MdDelete } from 'react-icons/md';
 
 const ActivityDetails = () => {
     const { id } = useParams<{ id: string }>();
@@ -63,7 +64,7 @@ const ActivityDetails = () => {
                                 onClick={() => navigate(`/activity/${id}/edit`)}
                                 className="btn btn-sm btn-outline"
                             >
-                                Edit
+                                <MdEdit size={24} />
                             </button>
                         )}
                         <button
@@ -71,7 +72,7 @@ const ActivityDetails = () => {
                             disabled={deleting}
                             className="btn btn-sm btn-error"
                         >
-                            {deleting ? 'Deleting...' : 'Delete'}
+                            <MdDelete size={24} />
                         </button>
                     </div>
                 )}
