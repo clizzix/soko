@@ -1,73 +1,43 @@
-# React + TypeScript + Vite
+# Soko
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Soko is a React + TypeScript web app for discovering and sharing local activities. Users can browse activities on an interactive map, search by title, description, or category, and save favorites to their profile.
 
-Currently, two official plugins are available:
+## Current Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Authentication** — signup, login, and protected routes via a React context-based auth flow
+- **Activities** — create, edit, delete, and view activity details (title, description, category, location, date)
+- **Search** — filter activities by title, description, or category tag through a dedicated search bar
+- **Map view** — Mapbox-powered interactive map with location search for picking and displaying activity locations
+- **Favorites** — logged-in users can favorite activities and review them on a dedicated page
+- **Profile** — per-user profile page listing the user's own activities
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend:** React 19, TypeScript, Vite, React Router 7
+- **Styling:** Tailwind CSS 4 with daisyUI
+- **Forms & validation:** React Hook Form + Zod
+- **Maps:** Mapbox GL, react-map-gl, `@mapbox/search-js-react`
+- **HTTP:** Axios (services split under `src/api/`)
+- **Notifications:** react-toastify
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── api/          # Axios client and service modules (activities, users, favorites)
+├── components/   # Reusable UI (Navbar, Header, ActivityCard, Searchbar, MapView, ...)
+├── context/      # AuthContext
+├── layout/       # MainLayout wrapping routed pages
+├── pages/        # Home, Login, Signup, Profile, Favorites, ActivityDetails, Create/EditActivity
+├── schemas/      # Zod validation schemas
+└── types/        # Shared TypeScript types
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Scripts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev       # start Vite dev server
+npm run build     # type-check and build for production
+npm run lint      # run ESLint
+npm run preview   # preview production build
 ```
