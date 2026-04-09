@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { signupUser } from '../api';
 import { signupSchema, type SignupFormData } from '../schemas';
+import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 
 const Signup = () => {
+    const { login } = useAuth();
     const navigate = useNavigate();
     const [form, setForm] = useState<SignupFormData>({
         userName: '',
@@ -36,8 +38,9 @@ const Signup = () => {
         setErrors({});
         setIsSubmitting(true);
         try {
-            await signupUser(result.data);
-            navigate('/login');
+            const { accessToken, user } = await signupUser(result.data);
+            login(user, accessToken);
+            navigate('/');
         } catch {
             toast.error('Invalid Input');
         } finally {

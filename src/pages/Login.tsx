@@ -37,8 +37,8 @@ const Login = () => {
         setErrors({});
         setIsSubmitting(true);
         try {
-            const { token, user } = await loginUser(result.data);
-            login(user, token);
+            const { accessToken, user } = await loginUser(result.data);
+            login(user, accessToken);
             navigate('/');
         } catch {
             toast.error('Invalid email or password');

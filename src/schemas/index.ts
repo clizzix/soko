@@ -30,8 +30,8 @@ export const userResponseSchema = z.object({
 });
 
 export const authResponseSchema = z.object({
-    token: z.string(),
-    user: userResponseSchema,
+    message: z.string(),
+    accessToken: z.string(),
 });
 
 // --- Activity Schemas ---

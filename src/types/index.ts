@@ -39,6 +39,6 @@ export interface Activity {
 }
 
 export interface AuthResponse {
-    token: string;
-    user: User;
+    message: string;
+    accessToken: string;
 }
