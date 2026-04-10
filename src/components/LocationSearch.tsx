@@ -32,6 +32,8 @@ const LocationSearch = ({ onChange, error }: LocationSearchProps) => {
             title: label,
             description: '',
             date: new Date().toISOString(),
+            price: 0,
+            tags: [],
             userId: '',
             location: { type: 'Point', coordinates: [lng, lat] },
         });
