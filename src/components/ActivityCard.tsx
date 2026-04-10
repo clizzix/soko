@@ -38,7 +38,7 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
     };
 
     return (
-        <div className="card w-96 bg-neutral-400 border border-neutral card-md shadow-sm text-black">
+        <div className="card w-96 bg-base-200 border border-neutral card-md shadow-sm">
             {activity.image && (
                 <figure>
                     <img
@@ -60,7 +60,7 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
                     })}
                 </p>
                 <p className="text-red-500">{activity.price}€</p>
-                <ul className="flex gap-4">
+                <ul className="flex gap-4 mb-4">
                     {activity.tags.map((tag, index) => (
                         <li
                             className="badge badge-outline badge-accent"

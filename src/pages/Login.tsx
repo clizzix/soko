@@ -50,15 +50,15 @@ const Login = () => {
     return (
         <form
             onSubmit={handleSubmit}
-            className="fieldset bg-neutral-400 border-neutral rounded-box w-xs border p-4 text-black mx-auto mt-40"
+            className="fieldset bg-base-200 border-neutral rounded-box w-xs border p-4 mx-auto mt-40"
         >
-            <legend className="fieldset-legend text-black">Login</legend>
+            <legend className="fieldset-legend">Login</legend>
 
             <label className="label">Email</label>
             <input
                 type="email"
                 name="email"
-                className="input bg-white"
+                className="input bg-white text-black"
                 placeholder="Email"
                 value={form.email}
                 onChange={handleChange}
@@ -71,7 +71,7 @@ const Login = () => {
             <input
                 type="password"
                 name="password"
-                className="input bg-white"
+                className="input bg-white text-black"
                 placeholder="Password"
                 value={form.password}
                 onChange={handleChange}
@@ -81,7 +81,7 @@ const Login = () => {
             )}
 
             <button
-                className="btn btn-base mt-4"
+                className="btn btn-primary mt-4"
                 type="submit"
                 disabled={isSubmitting}
             >

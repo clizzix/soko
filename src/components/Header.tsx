@@ -5,7 +5,7 @@ import ThemeToggle from './ThemeToggle';
 
 const Header = () => {
     return (
-        <div className="navbar bg-base-300 border border-black text-neutral-content shadow-sm justify-between">
+        <div className="navbar bg-base-300 border border-black shadow-sm justify-between">
             <Link to="/" className="btn btn-ghost text-xl">
                 <img src={logo} alt="SoKo Logo" className="h-16" />
                 <p className="text-3xl font-bold">SoKo</p>

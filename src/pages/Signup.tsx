@@ -50,16 +50,16 @@ const Signup = () => {
     return (
         <form
             onSubmit={handleSubmit}
-            className="fieldset bg-neutral-400 border-neutral rounded-box w-xs border p-4 text-black mx-auto mt-20"
+            className="fieldset bg-base-200 border-neutral rounded-box w-xs border p-4 mx-auto mt-20"
         >
-            <legend className="fieldset-legend text-black">Signup</legend>
+            <legend className="fieldset-legend">Signup</legend>
             <label htmlFor="userName" className="label">
                 Username
             </label>
             <input
                 type="userName"
                 name="userName"
-                className="input bg-white"
+                className="input bg-white text-black"
                 placeholder="Username"
                 value={form.userName}
                 onChange={handleChange}
@@ -71,7 +71,7 @@ const Signup = () => {
             <input
                 type="email"
                 name="email"
-                className="input bg-white"
+                className="input bg-white text-black"
                 placeholder="Email"
                 value={form.email}
                 onChange={handleChange}
@@ -84,7 +84,7 @@ const Signup = () => {
             <input
                 type="password"
                 name="password"
-                className="input bg-white"
+                className="input bg-white text-black"
                 placeholder="Password"
                 value={form.password}
                 onChange={handleChange}
@@ -97,7 +97,7 @@ const Signup = () => {
             <input
                 type="password"
                 name="confirmPassword"
-                className="input bg-white"
+                className="input bg-white text-black"
                 placeholder="Confirm Password"
                 value={form.confirmPassword}
                 onChange={handleChange}
@@ -107,7 +107,7 @@ const Signup = () => {
             )}
 
             <button
-                className="btn btn-base mt-4"
+                className="btn btn-primary mt-4"
                 type="submit"
                 disabled={isSubmitting}
             >
