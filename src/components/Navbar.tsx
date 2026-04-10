@@ -6,7 +6,7 @@ const Navbar = () => {
     const { user, logout } = useAuth();
 
     return (
-        <nav className="flex fixed bottom-0 bg-neutral w-full p-4 z-50">
+        <nav className="flex fixed bottom-0 bg-base-300 border border-black w-full p-4 z-50">
             {user ? (
                 <div className="flex mx-auto gap-6">
                     <div className="flex justify-center mx-auto gap-4">

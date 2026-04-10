@@ -18,7 +18,7 @@ const Searchbar = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label className="input flex items-center gap-2">
+            <label className="input flex items-center gap-2 bg-white">
                 <svg
                     className="h-[1em] opacity-100 text-black"
                     xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@ const Searchbar = () => {
                 </svg>
                 <input
                     type="search"
-                    className="grow text-black"
+                    className="grow text-black bg-white"
                     required
                     placeholder="Search by Title, Category or Description"
                     value={searchTerm}
