@@ -34,6 +34,15 @@ api.interceptors.response.use(
     async (error) => {
         const originalRequest = error.config;
 
+        // Check if server signaled that credential is unrecoverable
+        const wwwAuthenticate = error.response?.headers['www-authenticate'];
+        if (wwwAuthenticate?.includes('token_expired')) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/login';
+            return Promise.reject(error);
+        }
+
         if (
             error.response?.status === 401 &&
             !originalRequest._retry &&
